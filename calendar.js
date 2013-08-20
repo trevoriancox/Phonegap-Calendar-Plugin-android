@@ -4,7 +4,9 @@ function calendarPlugin()
 {
 }
 
-calendarPlugin.prototype.createEvent = function(title,location,notes,startDate,endDate, successCallback, errorCallback) {
+calendarPlugin.prototype.createEvent = function(
+		title,location,notes,startDate,endDate,calendarName,reminderMinutes,successCallback,errorCallback
+		) {
     if (typeof errorCallback != "function")  {
         console.log("calendarPlugin.createEvent failure: errorCallback parameter must be a function");
         return
@@ -14,6 +16,16 @@ calendarPlugin.prototype.createEvent = function(title,location,notes,startDate,e
         console.log("calendarPlugin.createEvent failure: successCallback parameter must be a function");
         return
     }
+    
+    //TODO: implement reminderMinutes, calendarName
+    
+    var allDay = (startDate.getHours()==0
+    				&& startDate.getMinutes()==0
+    				&& startDate.getSeconds()==0
+    				&& endDate.getHours()==0
+    				&& endDate.getMinutes()==0
+    				&& endDate.getSeconds()==0);
+    
     cordova.exec(
       successCallback, // called when signature capture is successful
       errorCallback, // called when signature capture encounters an error
@@ -24,7 +36,8 @@ calendarPlugin.prototype.createEvent = function(title,location,notes,startDate,e
         "description": notes,
         "eventLocation": location,
         "startTimeMillis": startDate.getTime(),
-        "endTimeMillis": endDate.getTime()
+        "endTimeMillis": endDate.getTime(),
+        "allDay": allDay
       }]
     ); // List of arguments to the plugin
 };

@@ -26,7 +26,8 @@ public class CalendarPlugin extends CordovaPlugin {
 					.putExtra("endTime", arg_object.getLong("endTimeMillis"))
 					.putExtra("title", arg_object.getString("title"))
 					.putExtra("description", arg_object.getString("description"))
-					.putExtra("eventLocation", arg_object.getString("eventLocation"));
+					.putExtra("eventLocation", arg_object.getString("eventLocation"))
+					.putExtra("allDay", arg_object.getBoolean("allDay"));
 
 				this.cordova.startActivityForResult(this, calIntent, RESULT_CODE_CREATE);
 				return true;
@@ -41,10 +42,11 @@ public class CalendarPlugin extends CordovaPlugin {
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(requestCode == RESULT_CODE_CREATE) {
-			if(resultCode == Activity.RESULT_OK) {
+			if(resultCode == Activity.RESULT_OK || resultCode == Activity.RESULT_CANCELED) {
 				callback.success();
-			} else {
-				callback.error("Activity result code " + resultCode);
+			} 
+			else {
+				callback.error("Unable to add event (" + resultCode + ").");
 			}
 		} 
 	}
