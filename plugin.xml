@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+            id="com.tenforwardconsulting.phonegap.plugins.CalendarPlugin" version="0.0.1">
+        <name>CalendarPlugin</name>
+        <description>Calendar Plugin</description>
+        <license>MIT</license>
+        <keywords>cordova,calendar</keywords>
+        <js-module src="www/calendar.js" name="device">
+            <clobbers target="plugins" />
+        </js-module>
+        <platform name="android">
+            <config-file target="res/xml/config.xml" parent="/*">
+                <feature name="CalendarPlugin" value="com.tenforwardconsulting.phonegap.plugins.CalendarPlugin">
+                    <param name="android-package" value="com.tenforwardconsulting.phonegap.plugins.CalendarPlugin"/>
+                </feature>
+            </config-file>
+            <source-file src="src/android/CalendarPlugin.java"
+                         target-dir="src/com/tenforwardconsulting/phonegap/plugins/" />
+        </platform>
+    </plugin>
